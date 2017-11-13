@@ -1,5 +1,6 @@
 package com.linder.logginsemana14.Service;
 
+import com.linder.logginsemana14.model.Denuncia;
 import com.linder.logginsemana14.model.Producto;
 import com.linder.logginsemana14.model.User;
 
@@ -38,6 +39,9 @@ public interface ApiService {
                 (@Field("username")String nombre,
                  @Field("password") String password
     );
+
+    @GET("api/v1/denuncias")
+    Call<List<Denuncia>> getDenuncias();
 
 
 }

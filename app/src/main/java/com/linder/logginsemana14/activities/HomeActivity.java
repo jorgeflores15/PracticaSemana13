@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,14 +20,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linder.logginsemana14.R;
+import com.linder.logginsemana14.RegisterActivity;
+import com.linder.logginsemana14.Service.ApiService;
+import com.linder.logginsemana14.Service.ApiServiceGenerator;
+import com.linder.logginsemana14.model.Denuncia;
+import com.linder.logginsemana14.repository.DenunciasAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // SharedPreferences
     private SharedPreferences sharedPreferences;
+    private SwipeRefreshLayout swipeLayout;
+
+    private RecyclerView denunciaList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +79,84 @@ public class HomeActivity extends AppCompatActivity
         emailText.setText(sharedPreferences.getString("email", null));
 
 
+        //Refresh
+       // swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+
+        //Indicamos que listener recogerá la retrollamada (callback), en este caso, será el metodo OnRefresh de esta clase.
+
+       /* swipeLayout.setOnRefreshListener(this);
+        //Podemos espeficar si queremos, un patron de colores diferente al patrón por defecto.
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);*/
+
+
+        denunciaList = (RecyclerView) findViewById(R.id.recyclerview);
+        denunciaList.setLayoutManager(new LinearLayoutManager(this));
+
+        denunciaList.setAdapter(new DenunciasAdapter(this));
+
+
+        initialize();
+
+
+    }
+
+    private void initialize() {
+
+        ApiService service = ApiServiceGenerator.createService(ApiService.class);
+
+        Call<List<Denuncia>> call = service.getDenuncias();
+
+        call.enqueue(new Callback<List<Denuncia>>() {
+            @Override
+            public void onResponse(Call<List<Denuncia>> call, Response<List<Denuncia>> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d("CODE STATUS", "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+
+                        List<Denuncia> denuncias = response.body();
+                        Log.d("Denuncias", "denuncias: " + denuncias);
+
+                        DenunciasAdapter adapter = (DenunciasAdapter) denunciaList.getAdapter();
+                        adapter.setDenuncia(denuncias);
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.e("Servidor", "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e("t", "onThrowable: " + t.toString(), t);
+                        Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Denuncia>> call, Throwable t) {
+                Log.e("OnFallo", "onFailure: " + t.toString());
+                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+    private static final int REGISTER_FORM_REQUEST = 100;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REGISTER_FORM_REQUEST) {
+            // refresh data
+            initialize();
+        }
 
     }
 
@@ -102,17 +198,7 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_exit) {
+       if (id == R.id.nav_exit) {
             Intent intent1 = new Intent(this, LoginActivity.class);
             startActivity(intent1);
             callLogout();
