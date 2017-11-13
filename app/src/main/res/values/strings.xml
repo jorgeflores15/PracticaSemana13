@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LogginSemana14</string>
+    <string name="muni_denuncias">Muni Denuncias</string>
+    <string name="text_bienvenido">Bienvenidos al app de denuncias</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
