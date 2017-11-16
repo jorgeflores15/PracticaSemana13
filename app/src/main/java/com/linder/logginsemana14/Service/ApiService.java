@@ -29,10 +29,6 @@ public interface ApiService {
     @GET("api/v1/loginUsers")
     Call<List<User>> getUsers();
 
-
-    @GET("api/v1/productos")
-    Call<List<Producto>> getProductos();
-
     @FormUrlEncoded
     @POST("/api/v1/login")
     Call<ResponseMessage> loginUser
@@ -42,6 +38,31 @@ public interface ApiService {
 
     @GET("api/v1/denuncias")
     Call<List<Denuncia>> getDenuncias();
+
+    @FormUrlEncoded
+    @POST("api/v1/register")
+    Call<ResponseMessage> registrarUsuario(
+            @Field("username") String username,
+            @Field("correo") String correo,
+            @Field("password") String password);
+
+
+    @FormUrlEncoded
+    @POST("/api/v1/newdenuncia")
+    Call<ResponseMessage>
+    createDenuncia(@Field("titulo")String titulo,
+                   @Field("descripcion") String descripcion,
+                   @Field("ubicacion") String ubicacion);
+    @Multipart
+    @POST("/api/v1/newdenuncia")
+    Call<ResponseMessage> createDenunciaWithImage(
+            @Part("titulo") RequestBody titulo,
+            @Part("descripcion") RequestBody descripcion,
+            @Part("ubicacion") RequestBody ubicacion,
+            @Part MultipartBody.Part imagen
+    );
+
+
 
 
 }

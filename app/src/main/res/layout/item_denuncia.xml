@@ -35,21 +35,21 @@
             android:text="Titulo"/>
 
         <TextView
-            android:id="@+id/user_text"
+            android:id="@+id/descripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/foto_image"
             android:layout_below="@+id/titulo_text"
             android:layout_marginBottom="8dp"
             android:textSize="16sp"
-            android:text="Por manuel"/>
+            android:text="Trafico"/>
 
         <TextView
             android:id="@+id/ubicacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/foto_image"
-            android:layout_below="@+id/user_text"
+            android:layout_below="@+id/descripcion"
             android:layout_marginBottom="16dp"
             android:textSize="16sp"
             android:text="Ubicacion"/>

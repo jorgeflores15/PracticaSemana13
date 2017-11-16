@@ -61,8 +61,8 @@ public class DenunciasAdapter extends RecyclerView.Adapter<DenunciasAdapter.View
             super(itemView);
             fotoImage = (ImageView) itemView.findViewById(R.id.foto_image);
             titulo = (TextView) itemView.findViewById(R.id.titulo_text);
-            user = (TextView) itemView.findViewById(R.id.user_text);
-            ubicacion = (TextView) itemView.findViewById(R.id.ubicacion);
+           // user = (TextView) itemView.findViewById(R.id.user_text);
+            ubicacion = (TextView) itemView.findViewById(R.id.descripcion);
 
 
         }
@@ -82,8 +82,8 @@ public class DenunciasAdapter extends RecyclerView.Adapter<DenunciasAdapter.View
         float lat = denuncia.getLat();
         float lng = denuncia.getLng();
         holder.titulo.setText(denuncia.getTitulo());
-        holder.user.setText(denuncia.getUsuario());
-        holder.ubicacion.setText(denuncia.getDireccion());
+        //holder.user.setText(denuncia.getUsuario());
+        holder.ubicacion.setText(denuncia.getDescripcion());
     }
 
 

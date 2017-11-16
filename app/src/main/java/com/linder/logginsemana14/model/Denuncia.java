@@ -9,10 +9,11 @@ public class Denuncia {
     private Integer idd;
     private String titulo;
     private String usuario;
-    private String direccion;
+    private String descripcion;
     private float lat;
     private float lng;
     private String foto;
+    private String ubicacion;
 
     public Integer getIdd() {
         return idd;
@@ -38,12 +39,12 @@ public class Denuncia {
         this.usuario = usuario;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public float getLat() {
@@ -70,16 +71,25 @@ public class Denuncia {
         this.foto = foto;
     }
 
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     @Override
     public String toString() {
         return "Denuncia{" +
                 "idd=" + idd +
                 ", titulo='" + titulo + '\'' +
                 ", usuario='" + usuario + '\'' +
-                ", direccion='" + direccion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", lat=" + lat +
                 ", lng=" + lng +
                 ", foto='" + foto + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
                 '}';
     }
 }
