@@ -36,24 +36,24 @@ public class DenunciasAdapter extends RecyclerView.Adapter<DenunciasAdapter.View
     private static final String TAG = DenunciasAdapter.class.getSimpleName();
 
     private List<Denuncia> denuncia;
-    private Activity activity;
+    //private Activity activity;
 
 
     public DenunciasAdapter(Activity activity){
         this.denuncia = new ArrayList<>();
-        this.activity = activity;
+        //this.activity = activity;
 
     }
 
-    public void setDenuncia(List<Denuncia> denuncia){
-        this.denuncia = denuncia;
+    public void setDenuncia(List<Denuncia> denuncias){
+        this.denuncia = denuncias;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView fotoImage;
         public TextView titulo;
-        public TextView user;
+        public TextView descripcion;
         public TextView ubicacion;
 
 
@@ -61,8 +61,8 @@ public class DenunciasAdapter extends RecyclerView.Adapter<DenunciasAdapter.View
             super(itemView);
             fotoImage = (ImageView) itemView.findViewById(R.id.foto_image);
             titulo = (TextView) itemView.findViewById(R.id.titulo_text);
-           // user = (TextView) itemView.findViewById(R.id.user_text);
-            ubicacion = (TextView) itemView.findViewById(R.id.descripcion);
+            descripcion = (TextView) itemView.findViewById(R.id.descripcion);
+            ubicacion = (TextView) itemView.findViewById(R.id.ubicacion);
 
 
         }
@@ -82,10 +82,13 @@ public class DenunciasAdapter extends RecyclerView.Adapter<DenunciasAdapter.View
         float lat = denuncia.getLat();
         float lng = denuncia.getLng();
         holder.titulo.setText(denuncia.getTitulo());
-        //holder.user.setText(denuncia.getUsuario());
-        holder.ubicacion.setText(denuncia.getDescripcion());
-    }
+        holder.descripcion.setText(denuncia.getDescripcion());
+        holder.ubicacion.setText(denuncia.getUbicacion());
 
+        String url = ApiService.API_BASE_URL + "/images/" + denuncia.getImagen();
+        Picasso.with(holder.itemView.getContext()).load(url).into(holder.fotoImage);
+
+    }
 
     @Override
     public int getItemCount() {

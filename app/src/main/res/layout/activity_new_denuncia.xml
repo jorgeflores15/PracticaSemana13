@@ -66,6 +66,35 @@
             android:hint="@string/ubicaci_n" />
 
     </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/latitudnew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:inputType="numberDecimal"
+                android:hint="Latitud" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/longitudnew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:inputType="numberDecimal"
+                android:hint="Longitud" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -86,8 +115,8 @@
 
     <ImageView
         android:id="@+id/imagen_preview"
-        android:layout_width="109dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:src="@mipmap/ic_launcher"/>
 </LinearLayout>
@@ -96,8 +125,6 @@
             android:layout_height="wrap_content"
             android:text="Registrar"
             android:onClick="callRegister"/>
-
-
     </LinearLayout>
 
 </LinearLayout>

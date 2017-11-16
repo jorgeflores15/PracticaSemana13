@@ -37,9 +37,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewDenunciaActivity extends AppCompatActivity {
+
     private static final String TAG = NewDenunciaActivity.class.getSimpleName();
     private ImageView imagePreview;
-    private EditText titulonew, descripcionnew, ubicacionnew;
+    private EditText titulonew, descripcionnew, ubicacionnew, latitudnew, longitudnew;
 
 
 
@@ -48,21 +49,27 @@ public class NewDenunciaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_denuncia);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         imagePreview = (ImageView) findViewById(R.id.imagen_preview);
         descripcionnew = (EditText) findViewById(R.id.descripcionNew);
         titulonew = (EditText) findViewById(R.id.titulonew);
         ubicacionnew= (EditText) findViewById(R.id.ubicacionnew);
+        latitudnew = (EditText) findViewById(R.id.latitudnew);
+        longitudnew =(EditText) findViewById(R.id.longitudnew);
+
+
 
     }
 
-        /**
-         * Camera handler
-         */
+    /**
+     * Camera handler
+     */
 
     private static final int CAPTURE_IMAGE_REQUEST = 300;
 
     private Uri mediaFileUri;
+
     public void takePicture(View view) {
         try {
 
@@ -83,6 +90,7 @@ public class NewDenunciaActivity extends AppCompatActivity {
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
             mediaFileUri = Uri.fromFile(mediaFile);
+            Log.d("Foto", String.valueOf(mediaFile));
 
             // Iniciando la captura
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -94,6 +102,9 @@ public class NewDenunciaActivity extends AppCompatActivity {
             Toast.makeText(this, "Error en captura: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+
+
 
 
     @Override
@@ -108,7 +119,7 @@ public class NewDenunciaActivity extends AppCompatActivity {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mediaFileUri);
 
                     // Reducir la imagen a 800px solo si lo supera
-                    bitmap = scaleBitmapDown(bitmap, 50);
+                    bitmap = scaleBitmapDown(bitmap, 800);
 
                     imagePreview.setImageBitmap(bitmap);
                 } catch (Exception e) {
@@ -122,16 +133,20 @@ public class NewDenunciaActivity extends AppCompatActivity {
             }
         }
     }
+
+
     public void callRegister(View view) {
 
         String titulo = titulonew.getText().toString();
         String descripcion = descripcionnew.getText().toString();
         String ubicacion = ubicacionnew.getText().toString();
+        String lat = latitudnew.getText().toString();
+        String lng = longitudnew.getText().toString();
 
-        if (titulo.isEmpty() || descripcion.isEmpty() || ubicacion.isEmpty() ) {
-            Toast.makeText(this, "Debe completar todos los campos!!!", Toast.LENGTH_SHORT).show();
+       /* if (nombre.isEmpty() || precio.isEmpty()) {
+            Toast.makeText(this, "Nombre y Precio son campos requeridos", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
         ApiService service = ApiServiceGenerator.createService(ApiService.class);
 
@@ -139,7 +154,7 @@ public class NewDenunciaActivity extends AppCompatActivity {
 
         if (mediaFileUri == null) {
             // Si no se incluye imagen hacemos un envío POST simple
-            call = service.createDenuncia(titulo, descripcion, ubicacion);
+            call = service.createDenuncia(titulo, descripcion, ubicacion, lat, lng,"1");
         } else {
             // Si se incluye hacemos envió en multiparts
 
@@ -163,9 +178,12 @@ public class NewDenunciaActivity extends AppCompatActivity {
 
             RequestBody tituloPart = RequestBody.create(MultipartBody.FORM, titulo);
             RequestBody descripcionPart = RequestBody.create(MultipartBody.FORM, descripcion);
-            RequestBody ubicacionPart = RequestBody.create(MultipartBody.FORM, ubicacion);
+            RequestBody ubicacaionPart = RequestBody.create(MultipartBody.FORM, ubicacion);
+            RequestBody latPart = RequestBody.create(MultipartBody.FORM, lat);
+            RequestBody lngPart = RequestBody.create(MultipartBody.FORM, lng);
+            RequestBody userIdPart = RequestBody.create(MultipartBody.FORM, "1");
 
-            call = service.createDenunciaWithImage(tituloPart, descripcionPart, ubicacionPart, imagenPart);
+            call = service.createDenunciaWithImage(tituloPart, descripcionPart, ubicacaionPart,latPart,lngPart,userIdPart, imagenPart);
         }
 
         call.enqueue(new Callback<ResponseMessage>() {
@@ -206,6 +224,10 @@ public class NewDenunciaActivity extends AppCompatActivity {
 
         });
     }
+
+
+
+
 
     /**
      * Permissions handler

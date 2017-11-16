@@ -6,21 +6,22 @@ package com.linder.logginsemana14.model;
 
 public class Denuncia {
 
-    private Integer idd;
-    private String titulo;
-    private String usuario;
-    private String descripcion;
-    private float lat;
-    private float lng;
-    private String foto;
-    private String ubicacion;
 
-    public Integer getIdd() {
-        return idd;
+    public int id;
+    public String titulo;
+    public int lat;
+    public int lng;
+    public String ubicacion;
+    public String descripcion;
+    public String imagen;
+    public int user_id;
+
+    public int getId() {
+        return id;
     }
 
-    public void setIdd(Integer idd) {
-        this.idd = idd;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -31,44 +32,20 @@ public class Denuncia {
         this.titulo = titulo;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public float getLat() {
+    public int getLat() {
         return lat;
     }
 
-    public void setLat(float lat) {
+    public void setLat(int lat) {
         this.lat = lat;
     }
 
-    public float getLng() {
+    public int getLng() {
         return lng;
     }
 
-    public void setLng(float lng) {
+    public void setLng(int lng) {
         this.lng = lng;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public String getUbicacion() {
@@ -79,17 +56,41 @@ public class Denuncia {
         this.ubicacion = ubicacion;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "Denuncia{" +
-                "idd=" + idd +
+                "id=" + id +
                 ", titulo='" + titulo + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", descripcion='" + descripcion + '\'' +
                 ", lat=" + lat +
                 ", lng=" + lng +
-                ", foto='" + foto + '\'' +
                 ", ubicacion='" + ubicacion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", imagen='" + imagen + '\'' +
+                ", user_id=" + user_id +
                 '}';
     }
 }
