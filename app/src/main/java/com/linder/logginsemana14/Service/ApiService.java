@@ -54,8 +54,8 @@ public interface ApiService {
     createDenuncia(@Field("titulo")String titulo,
                    @Field("descripcion") String descripcion,
                    @Field("ubicacion") String ubicacion,
-                   @Field("lat") String lat,
-                   @Field("lng") String lng,
+                   @Field("lat") float lat,
+                   @Field("lng") float lng,
                    @Field("user_id")String user_id);
 
 

@@ -9,8 +9,8 @@ public class Denuncia {
 
     public int id;
     public String titulo;
-    public int lat;
-    public int lng;
+    public float lat;
+    public float lng;
     public String ubicacion;
     public String descripcion;
     public String imagen;
@@ -32,19 +32,19 @@ public class Denuncia {
         this.titulo = titulo;
     }
 
-    public int getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(int lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 
-    public int getLng() {
+    public float getLng() {
         return lng;
     }
 
-    public void setLng(int lng) {
+    public void setLng(float lng) {
         this.lng = lng;
     }
 

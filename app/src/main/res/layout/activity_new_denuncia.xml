@@ -62,6 +62,7 @@
             android:id="@+id/ubicacionnew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="true"
             android:layout_margin="12dp"
             android:hint="@string/ubicaci_n" />
 
@@ -76,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:enabled="true"
                 android:inputType="numberDecimal"
                 android:hint="Latitud" />
 
@@ -89,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:enabled="true"
                 android:inputType="numberDecimal"
                 android:hint="Longitud" />
 
@@ -113,13 +116,18 @@
         android:background="#3C3D3D"
         android:drawableLeft="@drawable/ic_linked_camera" />
 
-    <ImageView
-        android:id="@+id/imagen_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:src="@mipmap/ic_launcher"/>
-</LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imagen_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+        </LinearLayout>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
